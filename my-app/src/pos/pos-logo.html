@@ -1,0 +1,25 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="pos-logo">
+  <!-- Defines the element's style and local DOM -->
+  <template>
+    <style>
+      #logo {
+        background-image: url('../../../images/logo.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: inherit;
+        width: inherit;
+      }
+    </style>
+    <div id="logo"></div>
+  </template>
+  <script>
+    // Your new element extends the Polymer.Element base class
+    class PosLogo extends Polymer.Element {
+      static get is() { return 'pos-logo'; }
+    }
+    //Now, register your new custom element so the browser can use it
+    customElements.define(PosLogo.is, PosLogo);
+  </script>
+</dom-module>

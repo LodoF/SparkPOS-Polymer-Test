@@ -1,0 +1,64 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<link rel="lazy-import" href="./pos/pos-login.html">
+<link rel="lazy-import" href="./pos/pos-logo.html">
+<dom-module id="my-login">
+<template>
+  <style>
+    :host {
+      height: 1080px;
+      width: 1920px;
+      background-image: url('../../images/loginbg.png');
+      text-align: center;
+      display: block;
+    }
+    pos-logo {
+      height: 209px;
+      width: 271px;
+      margin: 0px auto;
+      display: block;
+      padding-top: 8%;
+    }
+  </style>
+    <pos-logo></pos-logo>
+    <pos-login topage="{{page}}">{{page}}</pos-login>
+  
+</template>
+  <script>
+    class MyLogin extends Polymer.Element {
+      static get is() { return 'my-login'; }
+      static get properties () {
+        return {
+          page: {
+            type: String,
+            notify: true,
+            readOnly: false,
+            observer: '_pageChanged'
+          },
+          topage: {
+            type: String,
+            notify: true,
+            readOnly: false
+          }
+        }
+      }
+      _pageChanged(newValue, oldValue) {
+        console.log('old' + this.topage);
+        this.topage = newValue;
+        console.log('new' + this.topage);
+      }
+    }
+
+    window.customElements.define(MyLogin.is, MyLogin);
+  </script>
+</dom-module>

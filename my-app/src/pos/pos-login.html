@@ -1,0 +1,93 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-input/iron-input.html">
+
+<dom-module id="pos-login">
+  <!-- Defines the element's style and local DOM -->
+  <template>
+    <style>
+      #username {
+        border: none;
+        border-bottom: 2px solid #fff;
+        background-color: transparent;
+        color: #b0aead;
+        width: 500px;
+        height: 40px;
+        margin-top: 120px;
+        font-size: 30px;
+      }
+      #password {
+        border: none;
+        border-bottom: 2px solid #fff;
+        background-color: transparent;
+        color: #b0aead;
+        width: 500px;
+        height: 40px;
+        margin-top: 60px;
+        font-size: 30px;
+      }
+      #login {
+        font-size: 30px;
+        color: #fa802f;
+        height: 60px;
+        width: 250px;
+        text-align: center;
+        line-height: 60px;
+        background-color: transparent;
+        border: 1px solid #fa802f;
+        margin-top: 60px;
+      }
+    </style>
+    <iron-input bind-value="{{user}}">
+        {{user}}
+        <input type="text" id='username' placeholder="用户名" value="{{user::input}}"></iron-input>
+    </iron-input><br/>
+    <iron-input bind-value="{{pwd}}">
+        {{pwd}}
+        <input type="password" id='password' placeholder="密码" value="{{pwd::input}}"></iron-input>
+    </iron-input><br/>
+    <button id ="login" on-click= "handleClick">登录</button>
+  </template>
+  <script>
+    // Your new element extends the Polymer.Element base class
+    class PosLogin extends Polymer.Element {
+      static get is() { return 'pos-login'; }
+      static get properties () {
+        return {
+          user: {
+            type: String,
+            notify: true,
+            readOnly: false
+          },
+          pwd: {
+            type: String,
+            notify: true,
+            readOnly: false
+          },
+          page: {
+            type: Object,
+            value: {
+              success: 'main',
+              error: 'view404'
+            }
+          },
+          topage: {
+            type: String,
+            notify: true,
+            readOnly: false
+          }
+        }
+      }
+      handleClick() {
+        // if success 
+       let de = new DeController(this.user,this.pwd);
+        de.insert_local_business({id: 745}).then(res => {
+          this.topage = this.page.success;
+        }, err => {
+           this.topage = this.page.error;
+        });
+      }
+    }
+    //Now, register your new custom element so the browser can use it
+    customElements.define(PosLogin.is, PosLogin);
+  </script>
+</dom-module>
